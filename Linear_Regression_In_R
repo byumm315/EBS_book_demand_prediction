@@ -5,13 +5,13 @@ A=c(6,7,8,9,11,12)
 for (i in A){
 train[,i]=scale(train[,i])}
 train$영역 = factor(train$영역 ,levels = c('국어','수학','영어','과탐','사탐','제2외'))
-train<-train[,c(1,3,6,7,9,11,12,13)]
+train<-train[,c(1,3,4,7,11,12,13)]
 A=lm(순출고상용로그~.,train)
 #다중공선성검사
 library(car)
 round(vif(A),2)
 #StepWise
-train<-train[,-4]
+train<-train[,-c(3,4)]
 A=lm(순출고상용로그~.,train)
 B=step(A,direction='both')
 #잔차플랏그리기
@@ -23,4 +23,4 @@ for (i in A){
 test[,i]=scale(test[,i])}
 test$영역 = factor(test$영역 ,levels = c('국어','수학','영어','과탐','사탐','제2외'))
 index<-test[,12]
-test<-test[,c(1,2,8,10,11)]
+test<-test[,c(1,2,10,11)]
